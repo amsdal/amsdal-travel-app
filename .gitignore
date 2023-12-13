@@ -1,0 +1,10 @@
+__pycache__
+.mypy_cache
+.tmp
+*.pyc
+fixtures
+models
+schemas
+static
+venv
+warehouse

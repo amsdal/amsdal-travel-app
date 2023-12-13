@@ -1,0 +1,46 @@
+{
+    "title": "Journey",
+    "type": "object",
+    "properties": {
+        "start_date": {
+            "title": "start_date",
+            "type": "string"
+        },
+        "end_date": {
+            "title": "end_date",
+            "type": "string"
+        },
+        "country": {
+            "title": "country",
+            "type": "Country"
+        },
+        "persons": {
+            "title": "persons",
+            "type": "array",
+            "items": {
+                "type": "Person"
+            }
+        },
+        "equipment": {
+            "title": "equipment",
+            "type": "dictionary",
+            "items": {
+                "key": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "bookings": {
+            "title": "bookings",
+            "type": "array",
+            "items": {
+                "type": "Booking"
+            }
+        }
+    },
+    "required": [],
+    "indexed": []
+}

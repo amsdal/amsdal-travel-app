@@ -1,0 +1,17 @@
+[
+    {
+      "external_id": "us",
+      "name": "United States",
+      "code": "US"
+    },
+    {
+      "external_id": "gb",
+      "name": "United Kingdom",
+      "code": "GB"
+    },
+    {
+      "external_id": "de",
+      "name": "Germany",
+      "code": "DE"
+    }
+]

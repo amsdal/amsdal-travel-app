@@ -1,0 +1,22 @@
+application_name: local
+connections:
+  - name: lakehouse
+    backend: iceberg
+    spark_master: local[1]
+    credentials: 
+      configs:
+        spark.ui.enabled: false
+        spark.sql.catalog.amsdal.warehouse: ./warehouse
+        spark.sql.warehouse.dir: ./warehouse_sql
+        spark.sql.catalog.amsdal.uri: jdbc:sqlite:./warehouse/amsdal.db
+  - name: sqlite
+    backend: sqlite
+    credentials:
+      - db_path: ./warehouse/amsdal_state.sqlite3
+resources_config:
+  lakehouse: lakehouse
+  lock: sqlite
+  repository: 
+    default: sqlite
+    models:
+      user: lakehouse

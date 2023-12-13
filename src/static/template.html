@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            padding: 10px 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h3 {
+            text-align: center;
+            font-size: 14px;
+            margin-left: 15px;
+            margin-top: 35px;
+        }
+
+        .amazing-journey {
+            flex-grow: 1;
+            text-align: right;
+        }
+
+        .rows {
+            flex-direction: row;
+            display: flex;
+        }
+
+        .text {
+            margin: 15px 5px;
+        }
+
+        .text > div {
+            margin: 8px 0;
+        }
+
+        ul {
+            padding-left: 10px;
+            margin-top: 0;
+        }
+
+        .sub-header {
+            text-align: center;
+            margin: -10px 0 10px;
+        }
+
+        img {
+            display: block;
+            margin: 5px auto;
+        }
+    </style>
+</head>
+<body>
+<h1>Journey plan</h1>
+<br/>
+
+<div class="rows">
+    <div class="rows">
+        <div class="text">
+            <div>Start date:</div>
+            <div>End date:</div>
+        </div>
+        <div class="text">
+            <div><strong>{{journey.start_date}}</strong></div>
+            <div><strong>{{journey.end_date}}</strong></div>
+        </div>
+    </div>
+    <h3 class="amazing-journey">
+        Amazing journey in <strong>{{ journey.country.display_name }}</strong>
+    </h3>
+</div>
+<div class="rows">
+    <div class="text">
+        <div>Persons:</div>
+        <div>Equipment:</div>
+    </div>
+    <div class="text">
+        <div>
+            {% for person in journey.persons %}
+            <strong>{{ person.first_name }} {{ person.last_name}}</strong> ({{ person.age }} yo){% if not
+            loop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+        <div>
+            <ul>
+                {% for equipment, quantity in journey.equipment | items %}
+                <li><strong>{{ equipment }}</strong> - <strong>{{ quantity }}</strong> quantity</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% for booking in journey.bookings %}
+<div class="section">
+    <h3 class="property">
+        <strong>{{ booking.nights|int }} nights</strong> in <strong>{{ booking.property.name }}</strong>
+    </h3>
+    <div class="sub-header">{{ booking.date }}</div>
+    {% for photo in booking.property.photos %}
+    <img src="{{ photo.data | base64 }}" height="200px"/>
+    {% endfor %}
+</div>
+{% endfor %}
+<div class="history">
+    <h3>History of changes</h3>
+    {% for item in history_changes %}
+    <div class="rows">
+        <div class="text">
+            <strong>{{ item.date }}</strong>
+        </div>
+        <div class="text">
+            {{ item.model }} "{{ item.display_name | default('N/A', true) }}" was {{ item.action }}.
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>
