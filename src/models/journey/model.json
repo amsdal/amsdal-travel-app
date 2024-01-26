@@ -1,10 +1,21 @@
 {
     "title": "Journey",
     "type": "object",
+    "control": {
+        "type": "object_latest"
+    },
+    "column_format": {
+        "headerTemplate": "StringTemplate",
+        "cellTemplate": "ObjectDisplayNameTemplate"
+    },
     "properties": {
         "start_date": {
             "title": "start_date",
             "type": "string"
+        },
+        "start_timestamp": {
+            "title": "start_timestamp",
+            "type": "number"
         },
         "end_date": {
             "title": "end_date",
@@ -25,12 +36,8 @@
             "title": "equipment",
             "type": "dictionary",
             "items": {
-                "key": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "number"
-                }
+                "key_type": "string",
+                "value_type": "number"
             }
         },
         "bookings": {
