@@ -1,22 +1,17 @@
-application_name: local
+application_name: travel-app
 connections:
-  - name: lakehouse
-    backend: iceberg
-    spark_master: local[1]
-    credentials: 
-      configs:
-        spark.ui.enabled: false
-        spark.sql.catalog.amsdal.warehouse: ./warehouse
-        spark.sql.warehouse.dir: ./warehouse_sql
-        spark.sql.catalog.amsdal.uri: jdbc:sqlite:./warehouse/amsdal.db
-  - name: sqlite
-    backend: sqlite
+  - name: sqlite_history
+    backend: amsdal_data.connections.implementations.sqlite_history.SqliteHistoricalConnection
+    credentials:
+      - db_path: ./warehouse/amsdal_historical.sqlite3
+  - name: sqlite_state
+    backend: amsdal_data.connections.implementations.sqlite_state.SqliteStateConnection
     credentials:
       - db_path: ./warehouse/amsdal_state.sqlite3
+  - name: lock
+    backend: amsdal_data.lock.implementations.thread_lock.ThreadLock
 resources_config:
-  lakehouse: lakehouse
-  lock: sqlite
-  repository: 
-    default: sqlite
-    models:
-      user: lakehouse
+  lakehouse: sqlite_history
+  lock: lock
+  repository:
+    default: sqlite_state

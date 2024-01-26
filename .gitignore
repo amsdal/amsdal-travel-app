@@ -1,7 +1,10 @@
+.vscode
+.idea
+*.pyc
 __pycache__
 .mypy_cache
 .tmp
-*.pyc
+.env
 fixtures
 models
 schemas

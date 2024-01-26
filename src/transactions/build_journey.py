@@ -58,7 +58,10 @@ def get_best_start_date(country: Country) -> date:
 
 
 def book_best_properties(
-    country: Country, start_date: date, nights: int, total_nights: int
+    country: Country,
+    start_date: date,
+    nights: int,
+    total_nights: int,
 ):
     # TODO: here we can use external API to find the best properties for the country and book the available ones
     bookings = []

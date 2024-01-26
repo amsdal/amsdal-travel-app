@@ -107,10 +107,7 @@ def render_html(journey: Journey, history_changes: list):
         if not isinstance(value, bytes):
             raise TypeError("Input must be bytes")
 
-        try:
-            result = value.decode("utf-8")
-        except UnicodeDecodeError:
-            result = base64.b64encode(value).decode("utf-8")
+        result = base64.b64encode(value).decode("utf-8")
 
         return f"data:image/jpeg;base64,{result}"
 
@@ -118,27 +115,7 @@ def render_html(journey: Journey, history_changes: list):
 
     template = env.get_template("template.html")
 
-    # journey.bookings = [
-    #     ReferenceLoader(booking).load_reference()
-    #     if isinstance(booking, Reference)
-    #     else booking
-    #     for booking in journey.bookings
-    # ]
-    # for booking in journey.bookings:
-    #     booking.property.photos = [
-    #         ReferenceLoader(photo).load_reference()
-    #         if isinstance(photo, Reference)
-    #         else photo
-    #         for photo in booking.property.photos
-    #     ]
-
-    # journey.persons = [
-    #     ReferenceLoader(person).load_reference()
-    #     if isinstance(person, Reference)
-    #     else person
-    #     for person in journey.persons
-    # ]
-
     return template.render(
-        journey=journey.model_dump(), history_changes=history_changes
+        journey=journey.model_dump(),
+        history_changes=history_changes,
     )
