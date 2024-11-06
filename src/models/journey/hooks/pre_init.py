@@ -1,4 +1,3 @@
-from amsdal_models.errors import AmsdalValidationError
 from amsdal_utils.models.data_models.reference import Reference
 from amsdal_models.classes.helpers.reference_loader import ReferenceLoader
 
@@ -24,9 +23,9 @@ def validate_persons_age(self, data):
             person = ReferenceLoader(Reference(**person_reference)).load_reference()
 
         if person.age == "N/A":
-            raise AmsdalValidationError("Invalid DOB format. Please use YYYY-MM-DD")
+            raise ValueError("Invalid DOB format. Please use YYYY-MM-DD")
 
         if person.age < 18:
-            raise AmsdalValidationError(
+            raise ValueError(
                 f"{person.first_name} {person.last_name}: Age must be 18 or older"
             )

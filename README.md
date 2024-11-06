@@ -8,8 +8,6 @@ AMSDAL CLI is a tool that enables the creation of AMSDAL-based applications. Wit
 
 One of the most useful features of the AMSDAL CLI is the ability to run a local test HTTP server. This server allows you to preview your changes before releasing them to production, ensuring that your code works as expected.
 
-While not yet implemented, the AMSDAL CLI will also allow you to write and run unit tests for your code, making it easier to identify and fix any issues.
-
 Overall, the AMSDAL CLI is a powerful tool for anyone looking to develop AMSDAL-based applications quickly and efficiently.
 
 ## About This Guide

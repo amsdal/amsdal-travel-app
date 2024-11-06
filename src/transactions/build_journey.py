@@ -3,7 +3,6 @@ from datetime import date, timedelta
 from datetime import datetime
 
 from amsdal_data.transactions import transaction
-from amsdal_models.errors import AmsdalValidationError
 from models.user.booking import Booking
 from models.user.country import Country
 from models.user.journey import Journey
@@ -46,7 +45,7 @@ def BuildJourney(
 
 def get_country_by_trend(countries: list[Country]) -> Country:
     if len(countries) == 0:
-        raise AmsdalValidationError("No countries specified")
+        raise ValueError("No countries specified")
 
     # TODO: get the most trending country for the current year
     return random.choice(countries)
@@ -69,7 +68,7 @@ def book_best_properties(
     rest_nights = total_nights
 
     if len(properties) == 0:
-        raise AmsdalValidationError(
+        raise ValueError(
             f"No properties found for the country: {country.name}"
         )
 

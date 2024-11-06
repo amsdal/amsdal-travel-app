@@ -1,2 +1,1 @@
-amsdal[cli]==0.0.*
-Jinja2
+amsdal[cli]==0.2.*

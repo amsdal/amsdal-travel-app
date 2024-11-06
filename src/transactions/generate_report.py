@@ -4,7 +4,6 @@ import jinja2
 from amsdal_utils.models.data_models.metadata import Metadata
 from amsdal_utils.models.enums import Versions
 from amsdal_data.transactions import transaction
-from amsdal_models.errors import AmsdalValidationError
 from models.user.booking import Booking
 from models.user.journey import Journey
 from amsdal_utils.models.data_models.reference import Reference
@@ -17,7 +16,7 @@ def GenerateReport():
     upcoming_journey = get_upcoming_journey()
 
     if not upcoming_journey:
-        raise AmsdalValidationError("No upcoming journey found")
+        raise ValueError("No upcoming journey found")
 
     history_changes = get_history_changes(upcoming_journey)
     html_buffer = render_html(upcoming_journey, history_changes)
