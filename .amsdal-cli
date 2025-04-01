@@ -3,6 +3,7 @@
     "http_port": 8080,
     "check_model_exists": true,
     "json_indent": 4,
+    "models_format": "json",
     "verbose": true,
     "vcs": null
 }
