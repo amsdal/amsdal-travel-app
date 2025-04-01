@@ -1,0 +1,21 @@
+{
+    "title": "Booking",
+    "type": "object",
+    "properties": {
+        "property": {
+            "title": "property",
+            "type": "Property"
+        },
+        "date": {
+            "title": "date",
+            "type": "string"
+        },
+        "nights": {
+            "title": "nights",
+            "type": "number",
+            "default": 1.0
+        }
+    },
+    "required": [],
+    "indexed": []
+}

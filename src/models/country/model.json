@@ -1,0 +1,16 @@
+{
+    "title": "Country",
+    "type": "object",
+    "properties": {
+        "name": {
+            "title": "name",
+            "type": "string"
+        },
+        "code": {
+            "title": "code",
+            "type": "string"
+        }
+    },
+    "required": [],
+    "indexed": []
+}
