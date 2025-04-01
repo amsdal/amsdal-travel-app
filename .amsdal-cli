@@ -4,5 +4,6 @@
     "check_model_exists": true,
     "json_indent": 4,
     "verbose": true,
+    "models_format": "py",
     "vcs": null
 }
