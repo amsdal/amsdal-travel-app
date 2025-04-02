@@ -6,6 +6,10 @@
             "title": "start_date",
             "type": "string"
         },
+        "start_timestamp": {
+            "title": "start_timestamp",
+            "type": "number"
+        },
         "end_date": {
             "title": "end_date",
             "type": "string"

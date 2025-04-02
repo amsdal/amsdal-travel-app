@@ -88,6 +88,7 @@ def book_best_properties(
             date=start_date.strftime("%Y-%m-%d"),
             nights=book_nights,
         )
+        booking.save()
         bookings.append(booking)
 
     return bookings

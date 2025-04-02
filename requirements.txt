@@ -1,1 +1,2 @@
 amsdal[cli]==0.4.*
+jinja2
