@@ -6,55 +6,17 @@ class Migration(migrations.Migration):
     operations: list[migrations.Operation] = [
         migrations.CreateClass(
             module_type=ModuleType.USER,
-            class_name="Property",
+            class_name="Person",
             new_schema={
-                "title": "Property",
+                "title": "Person",
                 "properties": {
-                    "name": {"type": "string", "title": "name"},
-                    "type": {"type": "string", "title": "type"},
-                    "address": {"type": "string", "title": "address"},
-                    "free_parking": {"type": "boolean", "title": "free_parking"},
-                    "free_wifi": {"type": "boolean", "title": "free_wifi"},
-                    "photos": {"type": "array", "items": {"type": "File"}, "title": "photos"},
+                    "first_name": {"type": "string", "title": "first_name"},
+                    "last_name": {"type": "string", "title": "last_name"},
+                    "dob": {"type": "string", "title": "dob"},
                 },
-                "custom_code": "from amsdal.models.core.file import *",
-                "table_name": "Property",
+                "table_name": "Person",
                 "primary_key": ["partition_key"],
                 "foreign_keys": {},
-            },
-        ),
-        migrations.CreateClass(
-            module_type=ModuleType.USER,
-            class_name="PropertyFile",
-            new_schema={
-                "title": "PropertyFile",
-                "required": ["property", "file"],
-                "properties": {
-                    "property": {"type": "Property", "title": "Property", "db_field": ["property_partition_key"]},
-                    "file": {"type": "File", "title": "File", "db_field": ["file_partition_key"]},
-                },
-                "table_name": "PropertyFile",
-                "primary_key": ["partition_key"],
-                "foreign_keys": {
-                    "property": [{"property_partition_key": "string"}, "Property", ["partition_key"]],
-                    "file": [{"file_partition_key": "string"}, "File", ["partition_key"]],
-                },
-            },
-        ),
-        migrations.CreateClass(
-            module_type=ModuleType.USER,
-            class_name="Booking",
-            new_schema={
-                "title": "Booking",
-                "properties": {
-                    "property": {"type": "Property", "title": "property", "db_field": ["property_partition_key"]},
-                    "date": {"type": "string", "title": "date"},
-                    "nights": {"type": "number", "default": 1.0, "title": "nights"},
-                },
-                "custom_code": "from models.property import *",
-                "table_name": "Booking",
-                "primary_key": ["partition_key"],
-                "foreign_keys": {"property": [{"property_partition_key": "string"}, "Property", ["partition_key"]]},
             },
         ),
         migrations.CreateClass(
@@ -67,21 +29,6 @@ class Migration(migrations.Migration):
                     "code": {"type": "string", "title": "code"},
                 },
                 "table_name": "Country",
-                "primary_key": ["partition_key"],
-                "foreign_keys": {},
-            },
-        ),
-        migrations.CreateClass(
-            module_type=ModuleType.USER,
-            class_name="Person",
-            new_schema={
-                "title": "Person",
-                "properties": {
-                    "first_name": {"type": "string", "title": "first_name"},
-                    "last_name": {"type": "string", "title": "last_name"},
-                    "dob": {"type": "string", "title": "dob"},
-                },
-                "table_name": "Person",
                 "primary_key": ["partition_key"],
                 "foreign_keys": {},
             },
@@ -120,11 +67,46 @@ class Migration(migrations.Migration):
                     "person": {"type": "Person", "title": "Person", "db_field": ["person_partition_key"]},
                 },
                 "table_name": "JourneyPerson",
-                "primary_key": ["partition_key"],
+                "primary_key": ["journey", "person"],
                 "foreign_keys": {
                     "journey": [{"journey_partition_key": "string"}, "Journey", ["partition_key"]],
                     "person": [{"person_partition_key": "string"}, "Person", ["partition_key"]],
                 },
+            },
+        ),
+        migrations.CreateClass(
+            module_type=ModuleType.USER,
+            class_name="Property",
+            new_schema={
+                "title": "Property",
+                "properties": {
+                    "name": {"type": "string", "title": "name"},
+                    "type": {"type": "string", "title": "type"},
+                    "address": {"type": "string", "title": "address"},
+                    "free_parking": {"type": "boolean", "title": "free_parking"},
+                    "free_wifi": {"type": "boolean", "title": "free_wifi"},
+                    "photos": {"type": "array", "items": {"type": "File"}, "title": "photos"},
+                },
+                "custom_code": "from amsdal.models.core.file import *",
+                "table_name": "Property",
+                "primary_key": ["partition_key"],
+                "foreign_keys": {},
+            },
+        ),
+        migrations.CreateClass(
+            module_type=ModuleType.USER,
+            class_name="Booking",
+            new_schema={
+                "title": "Booking",
+                "properties": {
+                    "property": {"type": "Property", "title": "property", "db_field": ["property_partition_key"]},
+                    "date": {"type": "string", "title": "date"},
+                    "nights": {"type": "number", "default": 1.0, "title": "nights"},
+                },
+                "custom_code": "from models.property import *",
+                "table_name": "Booking",
+                "primary_key": ["partition_key"],
+                "foreign_keys": {"property": [{"property_partition_key": "string"}, "Property", ["partition_key"]]},
             },
         ),
         migrations.CreateClass(
@@ -138,10 +120,28 @@ class Migration(migrations.Migration):
                     "booking": {"type": "Booking", "title": "Booking", "db_field": ["booking_partition_key"]},
                 },
                 "table_name": "JourneyBooking",
-                "primary_key": ["partition_key"],
+                "primary_key": ["journey", "booking"],
                 "foreign_keys": {
                     "journey": [{"journey_partition_key": "string"}, "Journey", ["partition_key"]],
                     "booking": [{"booking_partition_key": "string"}, "Booking", ["partition_key"]],
+                },
+            },
+        ),
+        migrations.CreateClass(
+            module_type=ModuleType.USER,
+            class_name="PropertyFile",
+            new_schema={
+                "title": "PropertyFile",
+                "required": ["property", "file"],
+                "properties": {
+                    "property": {"type": "Property", "title": "Property", "db_field": ["property_partition_key"]},
+                    "file": {"type": "File", "title": "File", "db_field": ["file_partition_key"]},
+                },
+                "table_name": "PropertyFile",
+                "primary_key": ["property", "file"],
+                "foreign_keys": {
+                    "property": [{"property_partition_key": "string"}, "Property", ["partition_key"]],
+                    "file": [{"file_partition_key": "string"}, "File", ["partition_key"]],
                 },
             },
         ),
