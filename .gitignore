@@ -3,6 +3,8 @@ __pycache__
 .mypy_cache
 .tmp
 .env
+/.idea
+/.vscode
 /.cache-thumbnails
 /warehouse
 /static
@@ -11,3 +13,4 @@ __pycache__
 /fixtures
 /venv
 /migrations
+/transactions

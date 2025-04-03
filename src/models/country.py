@@ -10,3 +10,7 @@ class Country(Model):
     __module_type__: ClassVar[ModuleType] = ModuleType.USER
     name: Optional[str] = Field(None, title='name')
     code: Optional[str] = Field(None, title='code')
+
+    @property
+    def display_name(self) -> str:
+        return self.name
