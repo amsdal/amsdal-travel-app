@@ -2,12 +2,12 @@ import random
 from datetime import date, timedelta
 from datetime import datetime
 
-from amsdal_data.transactions import transaction
-from models.user.booking import Booking
-from models.user.country import Country
-from models.user.journey import Journey
-from models.user.person import Person
-from models.user.property import Property
+from amsdal.transactions import transaction
+from models.booking import Booking
+from models.country import Country
+from models.journey import Journey
+from models.person import Person
+from models.property import Property
 
 
 @transaction
@@ -88,6 +88,7 @@ def book_best_properties(
             date=start_date.strftime("%Y-%m-%d"),
             nights=book_nights,
         )
+        booking.save()
         bookings.append(booking)
 
     return bookings

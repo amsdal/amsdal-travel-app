@@ -1,14 +1,16 @@
-from datetime import datetime
 import base64
 import jinja2
-from amsdal_utils.models.data_models.metadata import Metadata
-from amsdal_utils.models.enums import Versions
-from amsdal_data.transactions import transaction
-from models.user.booking import Booking
-from models.user.journey import Journey
-from amsdal_utils.models.data_models.reference import Reference
-from models.user.person import Person
-from amsdal_models.classes.model import Model
+from datetime import datetime
+
+from amsdal import Metadata
+from amsdal import Versions
+from amsdal import Reference
+from amsdal.models import Model
+from amsdal.transactions import transaction
+
+from models.booking import Booking
+from models.journey import Journey
+from models.person import Person
 
 
 @transaction
@@ -29,13 +31,11 @@ def GenerateReport():
         "html": html_buffer,
     }
 
-
 def get_upcoming_journey():
-    qs = Journey.objects.filter(start_date__gt=datetime.now().strftime("%Y-%m-%d"))
-    qs = qs.order_by("start_date")
+    qs = Journey.objects.filter(start_timestamp__gt=datetime.now().timestamp())
+    qs = qs.order_by("start_timestamp")
 
     return qs.first().execute()
-
 
 def get_history_changes(journey: Journey):
     history = []
@@ -96,7 +96,6 @@ def _resolve_action(metadata: Metadata):
         return "Changed"
     else:
         return "Created"
-
 
 def render_html(journey: Journey, history_changes: list):
     loader = jinja2.FileSystemLoader(searchpath="./static")
