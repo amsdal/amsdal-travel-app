@@ -1,12 +1,13 @@
 application_name: travel-app
+async_mode: true
 connections:
   - name: sqlite_history
-    backend: sqlite-historical
+    backend: sqlite-historical-async
     credentials:
       - db_path: ./warehouse/amsdal_historical.sqlite3
       - check_same_thread: false
   - name: sqlite_state
-    backend: sqlite
+    backend: sqlite-async
     credentials:
       - db_path: ./warehouse/amsdal_state.sqlite3
       - check_same_thread: false

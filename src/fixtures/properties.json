@@ -1,0 +1,41 @@
+{
+    "Property": [
+      {
+        "external_id": "7fe17f0a-2c63-4076-b0fb-0a75022c489f",
+        "name": "Freehand Los Angeles",
+        "type": "Hotel",
+        "address": "416 W 8th St",
+        "free_parking": true,
+        "free_wifi": true,
+        "photos": [
+          "Property/1.png",
+          "Property/2.png",
+          "Property/3.png"
+        ]
+      },
+      {
+        "external_id": "098e6218-75bf-4728-a844-196884ed6a90",
+        "name": "Murray Hill East Suites",
+        "type": "Apartment",
+        "address": "149 E 39th St",
+        "free_parking": false,
+        "free_wifi": true,
+        "photos": [
+          "Property/4.png",
+          "Property/5.png"
+        ]
+      },
+      {
+        "external_id": "355d1b05-182c-48ca-b792-aba237dafa9b",
+        "name": "Hafenhaus Gager",
+        "type": "Country House",
+        "address": "Hauptstraße 1",
+        "free_parking": true,
+        "free_wifi": false,
+        "photos": [
+          "Property/6.png",
+          "Property/7.png"
+        ]
+      }
+    ]
+}

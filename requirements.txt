@@ -1,1 +1,3 @@
-amsdal[cli]==0.2.*
+amsdal[cli]==0.4.*
+amsdal-glue-connections[async-sqlite]
+jinja2

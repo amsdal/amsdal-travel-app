@@ -2,16 +2,16 @@ import random
 from datetime import date, timedelta
 from datetime import datetime
 
-from amsdal_data.transactions import transaction
-from models.user.booking import Booking
-from models.user.country import Country
-from models.user.journey import Journey
-from models.user.person import Person
-from models.user.property import Property
+from amsdal.transactions import async_transaction
+from models.booking import Booking
+from models.country import Country
+from models.journey import Journey
+from models.person import Person
+from models.property import Property
 
 
-@transaction
-def BuildJourney(
+@async_transaction
+async def BuildJourney(
     countries: list[Country],
     nights: int,
     total_nights: int,
@@ -20,7 +20,7 @@ def BuildJourney(
 ):
     country = get_country_by_trend(countries)
     start_date = get_best_start_date(country)
-    bookings = book_best_properties(country, start_date, nights, total_nights)
+    bookings = await book_best_properties(country, start_date, nights, total_nights)
     last_booking = bookings[-1]
     end_date = datetime.strptime(last_booking.date, "%Y-%m-%d") + timedelta(
         days=last_booking.nights
@@ -36,7 +36,7 @@ def BuildJourney(
         equipment=equipment,
         bookings=bookings,
     )
-    journey.save()
+    await journey.asave()
 
     return {
         "start_date": journey.start_date,
@@ -56,7 +56,7 @@ def get_best_start_date(country: Country) -> date:
     return date.today() + timedelta(days=random.randint(30, 45))
 
 
-def book_best_properties(
+async def book_best_properties(
     country: Country,
     start_date: date,
     nights: int,
@@ -64,7 +64,7 @@ def book_best_properties(
 ):
     # TODO: here we can use external API to find the best properties for the country and book the available ones
     bookings = []
-    properties = Property.objects.all().execute()
+    properties = await Property.objects.all().aexecute()
     rest_nights = total_nights
 
     if len(properties) == 0:
@@ -83,11 +83,11 @@ def book_best_properties(
             book_nights = nights
             rest_nights -= nights
 
-        booking = Booking(
+        booking = await Booking(
             property=_property,
             date=start_date.strftime("%Y-%m-%d"),
             nights=book_nights,
-        )
+        ).asave()
         bookings.append(booking)
 
     return bookings
